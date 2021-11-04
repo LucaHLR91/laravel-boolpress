@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,11 +13,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// ROTTA CHE GESTISCE LA HOMEPAGE VISIBILE AGLI UTENTI
+Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// SERIE DI ROTTE CHE GESTISCE TUTTO IL MECCANISMO DI AUTENTICAZIONE
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//  SERIE DI ROTTA CHE GESTISCONO IL BACKOFFICE
+Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')
+    ->group(function() {
+        //PAGINA DI ATTERRAGGIO DOPO IL LOGIN (CON IL PREFIX L'URL E' /ADMIN)
+        Route::get('/', 'HomeController@index')->name('index');
+
+    });
