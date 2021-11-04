@@ -23,7 +23,9 @@ Auth::routes();
 //  SERIE DI ROTTA CHE GESTISCONO IL BACKOFFICE
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')
     ->group(function() {
-        //PAGINA DI ATTERRAGGIO DOPO IL LOGIN (CON IL PREFIX L'URL E' /ADMIN)
+        // PAGINA DI ATTERRAGGIO DOPO IL LOGIN (CON IL PREFIX L'URL E' /ADMIN)
         Route::get('/', 'HomeController@index')->name('index');
+        // RICHIAMA I POST
+        Route::resource('/posts', 'PostController');
 
     });
