@@ -43,7 +43,7 @@ class PostController extends Controller
         $new_post->fill($form_data);
 
         //GENERO LO SLUG TRAMITE UNA CLASSE LARAVEL STR E I SUOI METODI
-        $slug = str::slug($new_post['title'], '-');
+        $slug = Str::slug($new_post['title'], '-');
         // VERIFICO SE LO SLUG SIA UNICO NEL SUO GENERE POICHE NEL DATABASE L HO IMPOSTATO COME UNICO
         $slug_presente = Post::where('slug', $slug)->first();
         // ISTANZIO UN CONTATORE NUMERICO CHE VERRÁ AGGIUNTO AL MIO SLUG BASE CON UN CICLO WHILE ANDANDO AD INCREMENTARE IL VALORE QUAL ORA ESSO SIA GIA PRESENTE
@@ -51,7 +51,7 @@ class PostController extends Controller
         while ($slug_presente) {
             $slug = $slug . '-' . $contatore;
             //VERIFICO SE NON HO UN POST CON LO STESSO SLUG ANCHE ALL INTERNO
-            $slug_presente = Post::where('slug', $slug);
+            $slug_presente = Post::where('slug', $slug)->first();
             $contatore++;
         }
 
