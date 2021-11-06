@@ -3,16 +3,17 @@
 @section('title', 'Posts')
 
 @section('content')
-    {{-- <ul>
-        @foreach ($posts as $post)
-            {{--    POSSO COMPORRE LA ROTTA CON L'ID, MA IN QUESTO CASO LO SLUG E' PIU PARLANTE QUINDI UTILIZZO LO SLUG, ESSENDO ANCHE ESSO UNIVOCO --}}
-            {{-- <li><a href="{{ route('admin.posts.show', $post['id']) }}">{{ $post['title'] }}</a></li> --}}
-        {{-- @endforeach  --}}
-    {{-- </ul> --}}
     
     <div class="container">
         <div class="row">
             <div class="col-12">
+                {{-- COMANDO GENERALE PER STAMPARE IL RISULTATO DI UNA OPERAZIONE DI CREAZIONE, CANCELLAZIONE ECC, POTREI NEI METODI WITH DEFINIRE NOMI DIVERSI E DARE CLASSI DIVERSE PER CAMBIARE COLORE AL MESSAGGIO  --}}
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <table class="table">
                     <thead>
                       <tr>
