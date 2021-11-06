@@ -37268,7 +37268,30 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // HO CREATO UNA FUNZIONE PER CHIEDERE CONFERMA DELLA CANCELLAZIONE DEL POST, CON IL WINDOW VADO A RENDERE GLOBALE QUESTA FUNZIONE ALTRIMENTI IL SISTEMA NON LA VEDE
+// window.confirmDelete = function () {
+//     const resp = confirm('Vuoi cnacellare?');
+// A QUESTO PUNTO VADO A FARE I MIEI CONTROLLI, E GLI DICO "SE HO PREMUTO IL TASTO ANNULLA..MI FAI UN QUALCOSA.. IN QUESTO CASO ANDARE A CANCELLARE IL COMPORTAMENTO DI DEFAULT DEL MIO FORM, OVVERO LA SUA ACTION"
+//     if (!resp) {
+//         event.preventDefault();
+//     }
+// }
+// COMMENTO LA FUNZIONA SOPRA POICHE L-EVENT ORMAI NON SI UTILIZZA PIU E POSSO PROCEDERE IN ALTRO MODO
+
+
+var deleteForm = document.querySelectorAll('.delete-post'); // PRENDO TRAMITE QUESTO METODO TUTTI GLI ELEMENTI CHE HANNO QUELLA DETERMINATA CLASSE(POSSO PRENDERE ANCHE ALTRE COSE). A QUESTO PUNTO A OGNI ELEMENTI SALVATO IN QUELLA COSTANTE, CON UN ADD EVENT LISTENER SUL SUBIT, SUL BOTTONE, ANDRA A FARE LA RICHIESTA DI CONFERMA E LO STOP IN CASO DI ANNULLA 
+
+deleteForm.forEach(function (item) {
+  item.addEventListener('submit', function (e) {
+    var resp = confirm('Vuoi cancellare?');
+
+    if (!resp) {
+      e.preventDefault();
+    }
+
+    ;
+  });
+});
 
 /***/ }),
 
