@@ -41,11 +41,14 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Post $post
+     * @param  String $slug
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
+        // PASSO LO SLUG COME PARAMETRO PERCHE NELLA SEZIONE GUEST E' PIU IMPORTANTE DELL ID
+        $post = Post::where('slug', $slug)->first();
+        
         if (!$post) {
             abort(404);
         };
