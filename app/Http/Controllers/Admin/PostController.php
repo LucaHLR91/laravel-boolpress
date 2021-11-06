@@ -78,34 +78,59 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        if (!$post) {
+            abort(404);
+        }
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $form_data = $request->all();
+        //VERIFICO SE IL TITOLO RICEVUTO NELLA MODIFICA E' UGUALE AL PRECEDENTE
+        if ($form_data['title'] != $post['title']) {
+            // E' STATO MODIFICATO IL TITOLO QUINDI DEVO MODIFICARE LO SLUG
+            $slug = Str::slug($form_data['title'], '-');
+        
+            $slug_presente = Post::where('slug', $slug)->first();
+        
+            $contatore = 1;
+            while ($slug_presente) {
+                $slug = $slug . '-' . $contatore;
+            
+                $slug_presente = Post::where('slug', $slug)->first();
+                $contatore++;
+            };
+
+            $form_data['slug'] = $slug;
+        }
+
+        $post->update($form_data);
+
+        return redirect()->route('admin.posts.index')->with('status', 'Post correttamente aggiornato');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('status', 'Post eliminato');
     }
 }

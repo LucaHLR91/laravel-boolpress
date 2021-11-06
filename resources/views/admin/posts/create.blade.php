@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('title', 'Crea Post')
 
 @section('content')
     <div class="container">

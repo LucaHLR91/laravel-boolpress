@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Posts')
+
 @section('content')
     {{-- <ul>
         @foreach ($posts as $post)
@@ -29,7 +31,7 @@
                                 <td>
                                     <a href="{{ route('admin.posts.show', $post['id']) }}" class="btn btn-info">Details</a>
                                     <a href="{{ route('admin.posts.edit', $post['id']) }}" class="btn btn-warning">Edit</a>
-                                    <form action="" class="d-inline-block" method="post">
+                                    <form action="{{ route('admin.posts.destroy', $post['id']) }}" class="d-inline-block" method="post">
                                         @csrf
                                         @method('DELETE')
                 
