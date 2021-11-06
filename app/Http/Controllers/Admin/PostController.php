@@ -38,6 +38,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        
+        // VALIDAZIONE DATI PROVENIENTI DAL FORM
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required', 
+        ]);
+        // RICHIEDO I DATI AL FORM PER COMPORRE IL MIO NUOVO POST
+        
         $form_data = $request->all();
         $new_post = new Post();
         $new_post->fill($form_data);
