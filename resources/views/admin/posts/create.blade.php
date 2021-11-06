@@ -11,14 +11,14 @@
                     @method('POST')
                     <div class="form-group">
                         <label for="title">Titolo</label>
-                        <input type="text" name="title" id="title" placeholder="Inserisci titolo" class="form-control @error('title') is-invalid @enderror">
+                        <input type="text" name="title" id="title" placeholder="Inserisci titolo" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
                         @error('title')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="content">Contenuto</label>
-                        <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" placeholder="Inserisci il contentuto"></textarea>
+                        <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" placeholder="Inserisci il contentuto">{{ old('content') }}</textarea>
                         @error('content')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
