@@ -84,6 +84,7 @@ class PostController extends Controller
         if (!$post) {
             abort(404);
         }
+        
         return view('admin.posts.show', compact('post'));
     }
 
@@ -98,7 +99,16 @@ class PostController extends Controller
         if (!$post) {
             abort(404);
         }
-        return view('admin.posts.edit', compact('post'));
+
+        $categories = Category::all();
+
+        // IN QUESTO CASO IL COMPACT PASSANDOGLI DUE PARAMETRI CI VA A FARE UNA COSA DI QUESTO TIPO
+        // $data = [
+        //     'post' => $post,
+        //     'categories' => $categories
+        // ];
+        
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**

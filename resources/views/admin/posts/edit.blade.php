@@ -25,6 +25,19 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="category_id">Categoria</label>
+                    <select name="category_id" id="category_id" class="form-control @error('content') is-invalid @enderror">
+                        <option value="">-->Seleziona<--</option>
+                        @foreach ($categories as $category)
+                            {{-- FACCIO NELL OLD UN CONTROLLO SE ESISTE PRIMA QUALCOSA DI SELEZIONATO CON IL POST->CATEGORY_ID, SENNO SALVO IN CASO DI ERRORE QUELLO CHE HO APPENA SELEZIONATO --}}
+                            <option value="{{ $category['id']}}" {{ old('category_id', $post['category_id']) == $category['id'] ? 'selected' : NULL }}>{{ $category['name'] }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-success">Modifica Post</button>
                 </div>
             </form>
