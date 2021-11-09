@@ -30,5 +30,5 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')
         Route::get('/', 'HomeController@index')->name('index');
         // RICHIAMA I POST
         Route::resource('/posts', 'PostController');
-
+        Route::resource('/categories', 'CategoryController');
     });
