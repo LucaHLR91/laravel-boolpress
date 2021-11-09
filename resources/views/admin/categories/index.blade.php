@@ -35,7 +35,7 @@
                                     @endif    
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-info">Details</a>
+                                    <a href="{{ route('admin.categories.show', $category->id )}}" class="btn btn-info">Details</a>
                                     <a href="" class="btn btn-warning">Edit</a>
                                     <form action="" class="d-inline-block delete-post" method="post">
                                         @csrf
