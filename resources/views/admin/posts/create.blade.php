@@ -35,6 +35,15 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
+                   <div class="form-group">
+                       <p>Seleziona i tag:</p>
+                       @foreach ($tags as $tag)
+                            <div class="form-check-inline form-check">
+                                <input type="checkbox" name="tags[]" id="{{ 'tag' . $tag['id'] }}" value="{{ $Tag['id'] }}" class="form-check-input">
+                                <label for="{{ 'tag' . $tag['id'] }}" class="form-check-label">{{ $tag['name'] }}</label>
+                            </div>
+                       @endforeach
+                   </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Crea Post</button>
                     </div>
