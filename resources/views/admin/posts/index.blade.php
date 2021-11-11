@@ -38,7 +38,12 @@
                                 <td>
                                     @if ($post->tags)
                                         @foreach ($post->tags as $tag)
-                                            {{ $tag->name . ',' }}
+                                            @if ($loop->last){
+                                               {{ $tag->name }} 
+                                            }@else {
+                                                {{ $tag->name . ',' }}
+                                            }
+                                            @endif
                                         @endforeach
                                     @endif    
                                 </td>
