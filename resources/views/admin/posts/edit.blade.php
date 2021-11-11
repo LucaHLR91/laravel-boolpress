@@ -41,10 +41,15 @@
                     <p>Seleziona i tag:</p>
                     @foreach ($tags as $tag)
                          <div class="form-check-inline form-check">
-                             {{-- NELL'INPUT VERIFICO TRAMITE UN IF TERNARIO SE HO TAGS SELEZIONATI, SE CI SONO GLI ATTRIBUISCO IL CHECKED, UTILIZZO IL METODO CONTAINS PER VERIFICARE --}}
-                             <input {{ $post->tags->contains($tag) ? 'checked' : NULL }} type="checkbox" name="tags[]" id="{{ 'tag' . $tag['id'] }}" value="{{ $tag['id'] }}" class="form-check-input">
-                             <label for="{{ 'tag' . $tag['id'] }}" class="form-check-label">{{ $tag['name'] }}</label>
-                         </div>
+                            {{-- NELL'INPUT VERIFICO TRAMITE UN IF TERNARIO SE HO TAGS SELEZIONATI, SE CI SONO GLI ATTRIBUISCO IL CHECKED, UTILIZZO IL METODO CONTAINS PER VERIFICARE. CON L'OLD ANDIAMO A VEDERE INVECE SE C-ERA QUALCOSA DI SELEZIONATO, E MANTENERLO CON EVENTUALI ERRORI DI INSERIMENTO --}}
+                            @if($errors->any())
+                            <input {{ in_array($tag->id, old('tags', [])) ? 'checked' : NULL }} type="checkbox" name="tags[]" id="{{ 'tag' . $tag['id'] }}" value="{{ $tag['id'] }}" class="form-check-input">
+                            <label for="{{ 'tag' . $tag['id'] }}" class="form-check-label">{{ $tag['name'] }}</label>
+                            @else
+                            <input {{ $post->tags->contains($tag->id) ? 'checked' : NULL }} type="checkbox" name="tags[]" id="{{ 'tag' . $tag['id'] }}" value="{{ $tag['id'] }}" class="form-check-input">
+                            <label for="{{ 'tag' . $tag['id'] }}" class="form-check-label">{{ $tag['name'] }}</label>
+                            @endif
+                        </div>
                     @endforeach
                 </div>
                 <div class="form-group">

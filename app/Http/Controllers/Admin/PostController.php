@@ -157,7 +157,10 @@ class PostController extends Controller
         if(array_key_exists('tags', $form_data)) {
             $post->tags()->sync($form_data['tags']);
         }
-
+        else {
+            // QUESTO NEL CASO IN CUI DESELEZIONO TUTTO, PASSO UN ARRAY VUOTO ALTRIMENTI LUI SOPRA NON FARA NULLA.
+            $post->tags()->sync([]);
+        }
         return redirect()->route('admin.posts.index')->with('status', 'Post correttamente aggiornato');
     }
 
