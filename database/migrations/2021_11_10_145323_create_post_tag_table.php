@@ -20,7 +20,7 @@ class CreatePostTagTable extends Migration
 
             $table->unsignedBigInteger('tag_id');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
-            //ON DELETE SERVE PER CANCELLARE LE INFORMAZIONI RELATIVE AL POST CHE CANCELLO
+            // IL CASCADE SERVE QUANDO CANCELLO IL POST AD ESEMPIO MI CANCELLA TUTTE LE INFO ANCHE NELLE TABELLE PONTE ECC, ON DELETE SERVE PER CANCELLARE LE INFORMAZIONI RELATIVE AL POST CHE CANCELLO
         });
     }
 

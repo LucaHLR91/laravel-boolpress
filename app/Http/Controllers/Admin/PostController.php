@@ -47,7 +47,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required', 
-            'category_id' => 'exists:categories,id'
+            'category_id' => 'exists:categories,id',
+            'tags' => 'exists:tags,id'
         ]);
         // RICHIEDO I DATI AL FORM PER COMPORRE IL MIO NUOVO POST
         
@@ -70,6 +71,9 @@ class PostController extends Controller
 
         $new_post->slug = $slug;
         $new_post->save();
+
+        // PASSO AL NEW POST LE INFORMAZIONI DEI TAG INSERITI
+        $new_post->tags()->attach($form_data['tags']);
         return redirect()->route('admin.posts.index')->with('status', 'Post inserito correttamente');
     }
 
@@ -102,14 +106,14 @@ class PostController extends Controller
         }
 
         $categories = Category::all();
-
+        $tags = Tag::all();
         // IN QUESTO CASO IL COMPACT PASSANDOGLI DUE PARAMETRI CI VA A FARE UNA COSA DI QUESTO TIPO
         // $data = [
         //     'post' => $post,
         //     'categories' => $categories
         // ];
         
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -124,7 +128,9 @@ class PostController extends Controller
         // VALIDO I DATI
         $request->validate([
             'title' => 'required|max:255',
-            'content' => 'required', 
+            'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' =>  'exists:tags,id'
         ]);
         
         $form_data = $request->all();
@@ -145,8 +151,9 @@ class PostController extends Controller
 
             $form_data['slug'] = $slug;
         }
-
+        // QUI SE USO L-ATTACH CREA PROBLEMI, IN QUESTO CASO IL METODO SYNC E' MEGLIO, SYNC SI PREOCCUPA DI RIMUOVERE E AGGIUNGERE LE MODIFICHE, NELL UPDATE E' OBBLIGATORIO IL SYNC
         $post->update($form_data);
+        $post->tags()->sync($form_data['tags']);
 
         return redirect()->route('admin.posts.index')->with('status', 'Post correttamente aggiornato');
     }
@@ -159,6 +166,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // CON IL DETACH UNA VOLTA CHE CANCELLO TUTTO VADO A TOGLIERE LE INFO NELLE TABELLE, POSSO INSERIRE QUESTO O IL ON DELETE CASCADE NEL CREATE
+        $post->tags()->detach($post['id']);
         $post->delete();
         return redirect()->route('admin.posts.index')->with('status', 'Post eliminato');
     }
