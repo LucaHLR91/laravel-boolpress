@@ -153,7 +153,10 @@ class PostController extends Controller
         }
         // QUI SE USO L-ATTACH CREA PROBLEMI, IN QUESTO CASO IL METODO SYNC E' MEGLIO, SYNC SI PREOCCUPA DI RIMUOVERE E AGGIUNGERE LE MODIFICHE, NELL UPDATE E' OBBLIGATORIO IL SYNC
         $post->update($form_data);
-        $post->tags()->sync($form_data['tags']);
+        // UTILIZZO UN METODO PER VERIFICARE SE LA CHIAVE TAGS ESISTE IN FORM DATA PER PREVENIRE UN ERRORE
+        if(array_key_exists('tags', $form_data)) {
+            $post->tags()->sync($form_data['tags']);
+        }
 
         return redirect()->route('admin.posts.index')->with('status', 'Post correttamente aggiornato');
     }
