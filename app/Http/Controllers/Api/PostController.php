@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -14,9 +15,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        // MI PRENDO I POST DAL MODEL POST E LI PASSO ALL'INTERNO DEL FILE JSON
+        $posts = Post::all();
+        
         return response()->json([
-            'name' => 'Paolo',
-            'state' => 'Italy'
+            'success' => true,
+            'resources' => $posts
         ]);
     }
 
