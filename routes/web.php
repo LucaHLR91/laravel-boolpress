@@ -21,6 +21,7 @@ Route::get('/vue-posts', 'HomeController@listPostsApi')->name('list-posts-api');
 // ROTTA CHE GESTIRA I POST PER L'UTENTE GENERICO
 Route::resource('/posts', 'PostController');
 
+
 // SERIE DI ROTTE CHE GESTISCE TUTTO IL MECCANISMO DI AUTENTICAZIONE
 
 Auth::routes();
@@ -33,4 +34,6 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')
         // RICHIAMA I POST
         Route::resource('/posts', 'PostController');
         Route::resource('/categories', 'CategoryController');
+        // ROTTA PER LA PAGINA PROFILO
+        Route::get('/profile', 'HomeController@profile')->name('profile');
     });
