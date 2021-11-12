@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// http://127.0.0.1/api/posts     Arriverò a questa rotta solo con una chiamata di questo tipo
+Route::resource('/posts', 'Api\PostController');
