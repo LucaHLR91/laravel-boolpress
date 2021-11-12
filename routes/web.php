@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 // ROTTA CHE GESTISCE LA HOMEPAGE VISIBILE AGLI UTENTI
 Route::get('/', 'HomeController@index')->name('index');
+// ROTTA CHE RICHIAMA I POST CON API, QUELLO SCRITTO DOPO LA CHIOCCIOLA IDENTIFICA IL METODO CHE UTILIZZIAMO NEL CONTROLLER PER RICHIAMARE LA VIEW
+Route::get('/vue-posts', 'HomeController@listPostsApi')->name('index');
 
 // ROTTA CHE GESTIRA I POST PER L'UTENTE GENERICO
 Route::resource('/posts', 'PostController');
