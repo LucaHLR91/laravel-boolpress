@@ -36,4 +36,5 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')
         Route::resource('/categories', 'CategoryController');
         // ROTTA PER LA PAGINA PROFILO
         Route::get('/profile', 'HomeController@profile')->name('profile');
+        Route::post('/generate-token', 'HomeController@generateToken')->name('generate-token');
     });

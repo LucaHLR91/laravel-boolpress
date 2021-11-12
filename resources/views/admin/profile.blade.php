@@ -13,7 +13,7 @@
                    <div>{{ Auth::user()->email }}</div>
                    {{-- SE ESISTE FACCIO VEDERE L'API TOKEN, SE NON ESISTE RENDERIZZO UN BOTTONE PER FARE RICHIESTA --}}
                    @if (Auth::user()->api_token) {
-                       <div>{{ Auth::user()->api_token }}</div>
+                       <div>API Token: {{ Auth::user()->api_token }}</div>
                    }@else {
                         <form action="{{ route('admin.generate_token') }}" method="post">
                             @csrf
